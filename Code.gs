@@ -170,7 +170,7 @@ function sendConfirmationEmail(data) {
         <h3 style="color: #d97706; margin-top: 0;">Payment Required: ${paymentDetails}</h3>
         <p style="margin-bottom: 15px;">Please scan the QR code below to complete your payment of ${paymentDetails} for ${data.purpose}.<br/>Mention your Registration ID (<strong>${data.registrationId}</strong>) in the payment notes.</p>
         <div style="text-align: center;">
-          <img src="https://techmiyaedtech2003.github.io/Founders_meet/Images/payment_QR.jpeg" alt="Scan to Pay" style="max-width: 250px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" />
+          <img src="https://worldfounderscommunity.github.io/Founders_meetup/Images/payment_QR.jpeg" alt="Scan to Pay" style="max-width: 250px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" />
         </div>
       </div>
     `;
@@ -222,7 +222,7 @@ function sendConfirmationEmail(data) {
   if (needsPayment) {
     try {
       // Assuming you host the repo on gh-pages, this URL will fetch the QR code directly
-      const qrUrl = "https://techmiyaedtech2003.github.io/Founders_meet/Images/payment_QR.jpeg";
+      const qrUrl = "https://worldfounderscommunity.github.io/Founders_meetup/Images/payment_QR.jpeg";
       const qrResponse = UrlFetchApp.fetch(qrUrl);
       const qrBlob = qrResponse.getBlob().setName("payment_QR.jpeg");
       attachments.push(qrBlob);

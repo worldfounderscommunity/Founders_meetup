@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://techmiyaedtech2003.github.io/Founders_meet",
+  "homepage": "https://github.com/worldfounderscommunity/Founders_meetup",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
