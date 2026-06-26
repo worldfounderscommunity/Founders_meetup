@@ -41,6 +41,10 @@ export default function TicketCard({ data, ticketRef }) {
                 <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Organization</p>
                 <p className="font-medium break-words leading-tight">{data.organization}</p>
               </div>
+              <div>
+                <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Purpose</p>
+                <p className="font-medium text-indigo-300">{data.purpose}</p>
+              </div>
             </div>
 
             <div>

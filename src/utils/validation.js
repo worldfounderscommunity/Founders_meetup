@@ -9,5 +9,8 @@ export const registrationSchema = z.object({
   organization: z.string().min(2, 'Organization name is required'),
   role: z.enum(['Founder', 'Investor', 'Working Professional', 'Student', 'Other'], {
     errorMap: () => ({ message: 'Please select a valid role' })
+  }),
+  purpose: z.enum(['Pitching', 'Investor', 'Networking'], {
+    errorMap: () => ({ message: 'Please select a valid purpose' })
   })
 });

@@ -84,6 +84,21 @@ export default function RegistrationForm({ onSubmit, isLoading }) {
           {errors.role && <p className="text-red-400 text-xs mt-1 flex items-center gap-1"><AlertCircle size={12}/>{errors.role.message}</p>}
         </div>
 
+        <div>
+          <label className="block text-sm font-medium text-slate-300 mb-1">Purpose of Joining *</label>
+          <select 
+            {...register('purpose')} 
+            className={`input-field appearance-none ${errors.purpose ? 'border-red-500 focus:border-red-500' : ''}`}
+            disabled={isLoading}
+          >
+            <option value="">Select a purpose...</option>
+            <option value="Pitching">Pitching</option>
+            <option value="Investor">Investor</option>
+            <option value="Networking">Networking</option>
+          </select>
+          {errors.purpose && <p className="text-red-400 text-xs mt-1 flex items-center gap-1"><AlertCircle size={12}/>{errors.purpose.message}</p>}
+        </div>
+
         <button 
           type="submit" 
           disabled={isLoading}

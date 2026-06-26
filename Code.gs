@@ -13,11 +13,12 @@ function setup() {
       "Email", 
       "Organization", 
       "Role", 
+      "Purpose",
       "Registration Date", 
       "Attendance Status", 
       "Check-in Time"
     ]);
-    sheet.getRange("A1:I1").setFontWeight("bold").setBackground("#d9ead3");
+    sheet.getRange("A1:J1").setFontWeight("bold").setBackground("#d9ead3");
     sheet.setFrozenRows(1);
   }
 }
@@ -76,6 +77,7 @@ function handleRegistration(data) {
     data.email,
     data.organization,
     data.role,
+    data.purpose || "",
     timestamp,
     "Pending", // Attendance Status
     "" // Check-in Time
@@ -149,6 +151,37 @@ function handleGetAll() {
 function sendConfirmationEmail(data) {
   const subject = "Founders Meet Registration Confirmation";
   
+  let paymentDetails = "";
+  let needsPayment = false;
+  if (data.purpose === "Networking") {
+    paymentDetails = "₹299";
+    needsPayment = true;
+  } else if (data.purpose === "Pitching") {
+    paymentDetails = "₹1499";
+    needsPayment = true;
+  } else {
+    paymentDetails = "Free";
+  }
+
+  let paymentHtml = "";
+  if (needsPayment) {
+    paymentHtml = `
+      <div style="background-color: #fffbeb; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #fde68a;">
+        <h3 style="color: #d97706; margin-top: 0;">Payment Required: ${paymentDetails}</h3>
+        <p style="margin-bottom: 15px;">Please scan the QR code below to complete your payment of ${paymentDetails} for ${data.purpose}.<br/>Mention your Registration ID (<strong>${data.registrationId}</strong>) in the payment notes.</p>
+        <div style="text-align: center;">
+          <img src="https://techmiyaedtech2003.github.io/Founders_meet/Images/payment_QR.jpeg" alt="Scan to Pay" style="max-width: 250px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" />
+        </div>
+      </div>
+    `;
+  } else {
+    paymentHtml = `
+      <div style="background-color: #f0fdf4; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #bbf7d0;">
+        <h3 style="color: #166534; margin-top: 0; margin-bottom: 0;">Payment: ${paymentDetails}</h3>
+      </div>
+    `;
+  }
+
   const htmlBody = `
     <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
       <h2 style="color: #4f46e5;">Registration Confirmed</h2>
@@ -156,12 +189,15 @@ function sendConfirmationEmail(data) {
       <p>Your registration for the Founders Meet 2026 is confirmed.</p>
       
       <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-        <p><strong>Registration ID:</strong> ${data.registrationId}</p>
-        <p><strong>Organization:</strong> ${data.organization}</p>
-        <p><strong>Role:</strong> ${data.role}</p>
+        <p style="margin: 5px 0;"><strong>Registration ID:</strong> ${data.registrationId}</p>
+        <p style="margin: 5px 0;"><strong>Organization:</strong> ${data.organization}</p>
+        <p style="margin: 5px 0;"><strong>Role:</strong> ${data.role}</p>
+        <p style="margin: 5px 0;"><strong>Purpose:</strong> ${data.purpose || "N/A"}</p>
       </div>
+
+      ${paymentHtml}
       
-      <p>Please save this email. The QR code required for entry is displayed on your ticket (which you downloaded during registration).</p>
+      <p>Please save this email. The QR code required for entry is displayed on your ticket (which is attached).</p>
       <p>Looking forward to seeing you there!</p>
       <br/>
       <p>Best regards,</p>
@@ -171,6 +207,7 @@ function sendConfirmationEmail(data) {
 
   let attachments = [];
   
+  // Attach Ticket
   if (data.ticketImage) {
     try {
       const base64Data = data.ticketImage.split(',')[1];
@@ -178,6 +215,19 @@ function sendConfirmationEmail(data) {
       attachments.push(blob);
     } catch(e) {
       console.error("Failed to parse image for email attachment", e);
+    }
+  }
+
+  // Attach Payment QR Code if payment is required
+  if (needsPayment) {
+    try {
+      // Assuming you host the repo on gh-pages, this URL will fetch the QR code directly
+      const qrUrl = "https://techmiyaedtech2003.github.io/Founders_meet/Images/payment_QR.jpeg";
+      const qrResponse = UrlFetchApp.fetch(qrUrl);
+      const qrBlob = qrResponse.getBlob().setName("payment_QR.jpeg");
+      attachments.push(qrBlob);
+    } catch(e) {
+      console.error("Failed to fetch payment QR code", e);
     }
   }
 
