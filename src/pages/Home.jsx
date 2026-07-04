@@ -48,7 +48,7 @@ export default function Home() {
         const result = await submitRegistration(payload);
         
         if (result.success) {
-          toast.success('Registration successful!');
+          toast.success('Please check your email id for ticket and payment detainls');
           // Pass data via state to Success page
           navigate(`/success/${registrationId}`, { state: { ticketData: completeData } });
         } else {

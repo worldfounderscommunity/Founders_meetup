@@ -1,4 +1,4 @@
-const GAS_URL = "https://script.google.com/macros/s/AKfycbw7jC93VuX0Ap9fK_38PzVFDFDK21qjDBchVwcl5ir9twt7tMpnpvkfWav2EqJfXBSE/exec";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbxSDsB5h2fp-7xtP3SjQKlfJCcs-KCZuJlMSXNJSigMGFObju5OdjOiBThJn600_MKf/exec";
 
 // Function to handle API requests to Google Apps Script
 export const submitRegistration = async (data) => {

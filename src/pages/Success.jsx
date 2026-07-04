@@ -62,7 +62,7 @@ export default function Success() {
           <CheckCircle size={32} />
         </div>
         <h1 className="text-3xl font-bold text-white mb-2">Registration Confirmed!</h1>
-        <p className="text-slate-400">Your ticket has been generated successfully and sent to your email.</p>
+        <p className="text-slate-400">Please check your email id for ticket and payment detainls</p>
       </div>
 
       <div className="w-full mb-8 relative">

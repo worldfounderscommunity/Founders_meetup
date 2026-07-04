@@ -74,9 +74,12 @@ export default function TicketCard({ data, ticketRef }) {
       </div>
       
       {/* Ticket Footer */}
-      <div className="bg-slate-900 px-6 py-3 border-t border-slate-800 flex justify-between items-center">
-        <p className="text-xs text-slate-500">Admit One</p>
-        <p className="text-xs text-slate-500 font-mono">NON-TRANSFERABLE</p>
+      <div className="bg-slate-900 px-6 py-3 border-t border-slate-800 flex flex-col gap-2">
+        <div className="flex justify-between items-center">
+          <p className="text-xs text-slate-500">Admit One</p>
+          <p className="text-xs text-slate-500 font-mono">NON-TRANSFERABLE</p>
+        </div>
+        <p className="text-[10px] text-slate-400 text-center">Please check your email id for ticket and payment detainls</p>
       </div>
     </div>
   );
